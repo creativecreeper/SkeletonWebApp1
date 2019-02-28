@@ -1,13 +1,13 @@
 {
-  "name": "saveraa-api",
+  "name": "rest-api",
   "version": "1.0.0",
-  "description": "APIs for Saveraa",
+  "description": "APIs for CRUD",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
-  "author": "Sonal Bagga",
+  "author": "Sonal Bagga - creative creeper",
   "license": "ISC",
   "dependencies": {
     "eslint": "^5.12.1",
