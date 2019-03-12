@@ -1,9 +1,15 @@
 "use strict";
 
 const express = require("express");
-const app = express();
-const port = 5000;
+var bodyParser = require('body-parser');
+
+const customer=require('./controller/customer.js');
 const middlewareLogger = require("./middlewareLogger");
+
+const port = 5000;
+const app = express();
+
+app.use(bodyParser.json()); // for parsing application/json
 
 app.get("/customer", 
         middlewareLogger.logRequest,
@@ -13,7 +19,11 @@ app.get("/customer",
         }
         );
 
+app.post("/customer", 
+        middlewareLogger.logRequest,
+        customer.post
+        );
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-//Next release:
-//Get controllers working with middleware that logs
+//pick up port from env variable
