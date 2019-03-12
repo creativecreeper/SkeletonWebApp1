@@ -6,4 +6,4 @@ This repository can be used as a base template for a Nodejs app that services RE
 * `npm install`
 * `npm start`
 * App will start on `http://localhost:5000/customer` and returns "customer returned" on the browser.
-* test1
+* test2
