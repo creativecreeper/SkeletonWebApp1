@@ -8,22 +8,25 @@ const dbName = "test";
 var client;
 var customerDB;
 
-const retrieve = async (id) => {
-  console.log("IN customer get" + id);
-  try {
-    // Use connect method to connect to the Server
-    await client.connect();
-
-    const db = client.db(dbName);
-    var customersColl = await db.collection("customers", { strict: true }, function callback (error, collection) {
-      console.log(error);
+const findCustomerByName = async (nameToMatch) =>
+{
+  try{
+    var customer = await customerDB.collection("customers").findOne({
+      name: {$eq: nameToMatch}
     });
-    customersColl.findOne(x => (x.customerId === id));
-  } catch (err) {
-    console.log(err.stack);
+    return customer;
   }
+  catch(err)
+  {
+    console.log("Error occured trying to find customer"+ err);
+    return null;
+  }
+}
 
-  client.close();
+const retrieve = async (nameToMatch) => {
+  customerDB = await getCustomerDB();
+  customer = await findCustomerByName(nameToMatch);
+  return customer;
 };
 
 const getCustomerDB = async () => {
@@ -44,10 +47,17 @@ const getCustomerDB = async () => {
 const createNew = async(customerBody) =>
 {
   customerDB = await getCustomerDB();
-  customerDB.collection("customers").insertOne(customerBody, function(err, res) {
-    if (err) throw err;
-    console.log("1 document inserted");
-  });
+  customer = await findCustomerByName(customerBody.name);
+  if (customer !== null) 
+  {
+    console.log("customer with that name exists");
+    //TODO: return http status code for exists
+    return null;
+  }
+  //TODO: return customer body with 200 if this is successful
+  //TODO: return proper http status code on error
+  customer = await customerDB.collection("customers").insertOne(customerBody);
+  return customer;
 }
 
 module.exports = { retrieve, createNew }

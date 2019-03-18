@@ -1,6 +1,6 @@
 // Place your settings in this file to overwrite the default settings
 {
-    "files.autoSave": "on",
+    "files.autoSave": "afterDelay",
     "workbench.sideBar.location": "right",
     "eslint.autoFixOnSave":true
 }

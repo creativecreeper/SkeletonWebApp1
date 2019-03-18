@@ -2,7 +2,6 @@
 
 const express = require("express");
 var bodyParser = require('body-parser');
-
 const customer=require('./controller/customer.js');
 const middlewareLogger = require("./middlewareLogger");
 
@@ -13,10 +12,7 @@ app.use(bodyParser.json()); // for parsing application/json
 
 app.get("/customer", 
         middlewareLogger.logRequest,
-        (req, res, next) => {
-            res.send("customer returned"); 
-            next(); 
-        }
+        customer.get
         );
 
 app.post("/customer", 
@@ -26,4 +22,8 @@ app.post("/customer",
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-//pick up port from env variable
+//TODO: pick up port from env variable
+//TODO: Deploy to a GCP node
+//TODO: Front end app
+//TODO: Put analytics in it
+//TODO: Mobile app
